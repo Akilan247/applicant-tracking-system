@@ -4,8 +4,12 @@ import com.akilan.application_tracking_system.DTO.Role;
 import com.akilan.application_tracking_system.DTO.RequestDto.UserRequestDto;
 import com.akilan.application_tracking_system.DTO.Response.UserResponseDto;
 import com.akilan.application_tracking_system.Service.UserRequestService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +23,7 @@ public class UserController {
     private UserRequestService userRequestService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDto> registerUser(@RequestBody UserRequestDto userRequestDto){
+    public ResponseEntity<?> registerUser(@RequestBody @Valid UserRequestDto userRequestDto){
         userRequestDto.setRole(Role.USER);
         System.out.println(userRequestDto.getUsername()); ///userName changes//
         return ResponseEntity.ok(userRequestService.registerUser(userRequestDto));

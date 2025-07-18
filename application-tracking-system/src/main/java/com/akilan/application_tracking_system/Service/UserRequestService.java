@@ -19,19 +19,25 @@ public class UserRequestService {
     }
 
     public UserResponseDto registerUser(UserRequestDto userRequestDto){
+
+        if(userDetailsJpaRepository.existsByEmail(userRequestDto.getEmail())){
+            throw new UserAlreadyExistException("Email Already exist");
+        }
+
         if(userDetailsJpaRepository.findByUserName(userRequestDto.getUsername()).isPresent()){
             throw new UserAlreadyExistException("User Already exist...");
         }
 
         Users users = new Users();
         users.setUsername(userRequestDto.getUsername());
+        users.setEmail(userRequestDto.getEmail());
         users.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         users.setRole(userRequestDto.getRole());
 
-        Users saveduUsers = userDetailsJpaRepository.save(users);
+        Users savedUsers = userDetailsJpaRepository.save(users);
 
-        return new UserResponseDto(saveduUsers.getId(),
-                saveduUsers.getUsername(),
-                saveduUsers.getRole());
+        return new UserResponseDto(savedUsers.getId(),
+                savedUsers.getUsername(),
+                savedUsers.getRole());
     }
 }

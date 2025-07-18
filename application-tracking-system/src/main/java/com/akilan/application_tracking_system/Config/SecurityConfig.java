@@ -31,10 +31,6 @@ public class SecurityConfig {
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/authenticate/**").permitAll()
-                        .requestMatchers("/login.html", "/register.html", "/user-dashboard.html",
-                                "/dashboard.html")
-                        .permitAll()
-
                         .anyRequest().authenticated());
 
         httpSecurity.addFilterBefore(jwtAuthFilter,
