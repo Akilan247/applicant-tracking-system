@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -40,4 +41,21 @@ public class ApplicationController {
         return ResponseEntity.ok(applicationService.getAllApplicationByApplicantId(applicantId));
     }
 
+    @PutMapping("/update-status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApplicationResponseDto> updateApplicationStatus(@RequestParam("applicantId") Long applicantId, @RequestParam("jobId") Long jobId,
+    @RequestParam("status") String status){
+        
+        return ResponseEntity.ok(applicationService.updateApplicationStatus(applicantId, jobId,status));
+    } 
+
+    // @PostMapping("/apply-with-resume")
+    // @PreAuthorize("hasRole('USER')")
+    // public ResponseEntity<ApplicationResponseDto> applyWithRessume(@RequestParam Long applicantId,
+    // @RequestParam Long jobId,
+    // @RequestParam MultipartFile resume){
+
+    //     applicationService.applyWithResume(applicantId,jobId,resume);
+    // }
+    
 }

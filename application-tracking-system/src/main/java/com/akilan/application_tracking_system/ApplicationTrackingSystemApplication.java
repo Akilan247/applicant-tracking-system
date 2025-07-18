@@ -11,4 +11,3 @@ public class ApplicationTrackingSystemApplication {
 	}
 
 }
-git remote add origin https://github.com/Akilan247/applicant-tracking-system.git

@@ -3,6 +3,7 @@ package com.akilan.application_tracking_system.Exception.ExceptionHandler;
 
 import com.akilan.application_tracking_system.Exception.AlreadyAppliedException;
 import com.akilan.application_tracking_system.Exception.ApplicantNotFoundException;
+import com.akilan.application_tracking_system.Exception.ApplicationNotFoundException;
 import com.akilan.application_tracking_system.Exception.ExceptionResponse.ExceptionResponse;
 import com.akilan.application_tracking_system.Exception.JobNotFoundException;
 import com.akilan.application_tracking_system.Exception.UserAlreadyExistException;
@@ -36,6 +37,12 @@ public class GlobaExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistException.class)
     public ResponseEntity<ExceptionResponse> userAlreadyExistException(UserAlreadyExistException e){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalTime.now(),e.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ApplicationNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> ApplicationNotFoundException(UserAlreadyExistException e){
         ExceptionResponse exceptionResponse = new ExceptionResponse(LocalTime.now(),e.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }

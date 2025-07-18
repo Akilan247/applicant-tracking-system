@@ -1,7 +1,5 @@
 package com.akilan.application_tracking_system.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,4 +27,5 @@ public class Application {
     @ManyToOne
     @JoinColumn(name = "applicantId",nullable = false)
     private Applicant applicant;
+
 }
