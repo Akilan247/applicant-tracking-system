@@ -1,5 +1,6 @@
 package com.akilan.application_tracking_system.Service;
 
+import com.akilan.application_tracking_system.Entity.Users;
 import com.akilan.application_tracking_system.Repo.UserDetailsJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserDetailsJpaRepository userDetailsJpaRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public Users loadUserByUsername(String username) throws UsernameNotFoundException {
 
         return userDetailsJpaRepository
                 .findByUserName(username)

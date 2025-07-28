@@ -34,7 +34,7 @@ public class AuthController {
     public ResponseEntity<Map<String, String>> generateToken(@RequestBody AuthRequest authRequest) {
 
         try {
-
+            System.out.println("Trying to authenticate: " + authRequest.getUsername());
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 

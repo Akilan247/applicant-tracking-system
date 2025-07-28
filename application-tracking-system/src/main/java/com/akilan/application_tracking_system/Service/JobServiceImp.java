@@ -32,7 +32,6 @@ public class JobServiceImp implements JobService {
         List<Job> jobList = jobRepository.findAll();
         if(jobList.isEmpty()){
             throw new JobNotFoundException("No jobs posted yet");
-//            return ResponseEntity.ok("No jobs found..");
         }
         return ResponseEntity.ok(JobMapper.JobToDtoMapper(jobList));
     }

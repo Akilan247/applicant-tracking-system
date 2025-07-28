@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/job")
 public class JobController {
@@ -27,6 +28,7 @@ public class JobController {
     @GetMapping("/all-jobs")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getAllJobs(){
+        System.out.println("In job controller...");
         return jobService.getAllJobs();
     }
 }

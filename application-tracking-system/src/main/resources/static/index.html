@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 200
+        }
+
+        .todo-grid,
+        .todo-input-grid {
+            display: grid;
+            grid-template-columns: 200px 150px 100px;
+            column-gap: 10px;
+            row-gap: 10px;
+            align-items: center;
+        }
+        .take{
+            padding: 7px;
+        }
+        .add-btn{
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+
+        }
+        .delete-btn{
+            padding: 10px;
+            background-color: brown;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .todo-input-grid {
+            margin-bottom: 10px;
+            align-items: stretch;
+        }
+    </style>
+</head>
+
+<body>
+    <p> Todo List</p>
+
+    <div class="todo-input-grid">
+        <input class="todo-input take" placeholder="Todo name">
+
+        <input type="date" class="due-date take">
+
+        <button onclick=addTodoList() onkeydown="" class="add-btn take">Add</button>
+    </div>
+
+    <div class="js-list todo-grid"></div>
+
+    <script>
+
+        let todoList = [
+            {
+                name: "DSA",
+                dueDate: '2025-07-30'
+            }
+        ];
+
+        // let todoList =[];
+        // todoList = localStorage.getItem();
+
+        function renderTask() {
+            let todoListHTML = '';
+            for (let i = 0; i < todoList.length; i++) {
+                const taskObject = todoList[i];
+
+                const { name, dueDate } = taskObject;
+
+                const html = `
+                <div>${name}</div>
+                <div>${dueDate}</div>   
+                <button class="delete-btn js-delete-todo-list" 
+                >Delete
+                </button>
+                 `;
+                todoListHTML += html;
+            }
+            const jsList = document.querySelector('.js-list');
+            jsList.innerHTML = todoListHTML;
+
+
+            document.querySelectorAll('.js-delete-todo-list')
+            .forEach((deleteButton,index)=>{
+                deleteButton.addEventListener('click',()=>{
+                    deleteTodo(index);
+                })
+            });
+
+        }
+
+        function deleteTodo(i) {
+            todoList.splice(i, 1);
+            renderTask();
+        }
+
+        function addTodoList() {
+            const inputElement = document.querySelector('.todo-input');
+            renderTask()
+            if (inputElement.value) {
+
+                const dueDate = document.querySelector('.due-date');
+                const obj = {
+                    name: inputElement.value,
+                    dueDate: dueDate.value
+                }
+                inputElement.value='';
+
+                todoList.push(obj);
+                localStorage.setItem(todoList);
+                console.log(todoList)
+                renderTask();
+                inputElement.value = '';
+
+            }
+        }
+
+        console.log(['egg','apple','egg','egg','ham']
+        .filter(value=> value==='egg'?'':value));
+    </script>
+</body>
+
+</html>

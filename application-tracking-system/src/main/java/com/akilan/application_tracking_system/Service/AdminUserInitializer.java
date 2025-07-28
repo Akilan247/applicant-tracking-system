@@ -18,6 +18,7 @@
 //            if(userDetailsJpaRepository.findByUserName("akilan").isEmpty()){
 //                Users admin = new Users();
 //                admin.setUsername("akilan");
+//                admin.setEmail("akilanb02@gmail.com");
 //                admin.setPassword(passwordEncoder.encode("admin1234"));
 //                admin.setRole(Role.ADMIN);
 //
@@ -25,15 +26,15 @@
 //                System.out.println("Default admin created");
 //            }
 //
-//            if(userDetailsJpaRepository.findByUserName("user").isEmpty()){
-//                Users admin = new Users();
-//                admin.setUsername("user");
-//                admin.setPassword(passwordEncoder.encode("user123"));
-//                admin.setRole(Role.USER);
-//
-//                userDetailsJpaRepository.save(admin);
-//                System.out.println("Default user created");
-//            }
+////            if(userDetailsJpaRepository.findByUserName("user").isEmpty()){
+////                Users admin = new Users();
+////                admin.setUsername("user");
+////                admin.setPassword(passwordEncoder.encode("user123"));
+////                admin.setRole(Role.USER);
+////
+////                userDetailsJpaRepository.save(admin);
+////                System.out.println("Default user created");
+////            }
 //        };
 //    }
 //}

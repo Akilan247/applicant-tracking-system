@@ -33,18 +33,25 @@ public class JWTUtil {
     public String generateToken(String username) {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-        String role = "ROLE_USER"; 
+        System.out.println(userDetails.toString());
+        String role = "ROLE_USER";
 
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
 
+        System.out.println(authorities.toString());
         if (authorities != null && !authorities.isEmpty()) {
             for (GrantedAuthority authority : authorities) {
-                role = authority.getAuthority();
-                break; 
+
+                String auth = authority.getAuthority();
+
+                if (auth.startsWith("ROLE_")) {
+                    role = auth.toUpperCase(); // normalize to ROLE_ADMIN etc.
+                    break;
+                } else {
+                    role = auth;
+                }
             }
         }
-
         return Jwts.builder()
                 .setSubject(username)
                 .claim("role", role) 
@@ -70,10 +77,12 @@ public class JWTUtil {
     }
 
     public boolean validateToken(String username, UserDetails userDetails, String token) {
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+
+        return username.equalsIgnoreCase(userDetails.getUsername().toLowerCase()) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
+        System.out.println("isTokenExpired...");
         return extractClaims(token).getExpiration().before(new Date());
     }
 }

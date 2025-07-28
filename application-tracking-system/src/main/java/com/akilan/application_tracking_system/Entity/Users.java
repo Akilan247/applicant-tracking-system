@@ -89,7 +89,7 @@ public class Users implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-
+        System.out.println("In users======>ROLE_"+role.name());
         authorities.add(new SimpleGrantedAuthority("ROLE_"+role.name()));
 
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = role.getPermissions().stream()
@@ -97,6 +97,17 @@ public class Users implements UserDetails {
                 .collect(Collectors.toSet());
         authorities.addAll(simpleGrantedAuthorities);
         return authorities;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }
 
